@@ -1,8 +1,10 @@
-from flask import Flask, request, jsonify
+
+from flask import Flask, request, jsonify, send_file
 import pytesseract
-from PIL import Image
+import cv2  # Thêm dòng này
+import numpy as np
+from PIL import Image, ImageDraw
 import io
-import cv2 
 
 app = Flask(__name__)
 @app.route('/', methods=['GET'])
