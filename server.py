@@ -4,6 +4,9 @@ from PIL import Image
 import io
 
 app = Flask(__name__)
+@app.route('/', methods=['GET'])
+def home():
+    return "Server is running!", 200
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
