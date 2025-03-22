@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from PIL import Image
 import io
 import os
-
+os.system("apt-get update && apt-get install -y tesseract-ocr")
 tesseract_path = os.popen("which tesseract").read().strip()
 print("Tesseract path:", tesseract_path)
 
