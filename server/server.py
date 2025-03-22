@@ -1,16 +1,10 @@
-from flask import Flask, request, jsonify
-import pytesseract
-from PIL import Image
-import io
-
-app = Flask(__name__)
-
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'image' not in request.files:
         return jsonify({"error": "No image uploaded"}), 400
 
     file = request.files['image']
+    keyword = request.form.get('keyword')  # Lấy từ khóa cần tìm từ request
     image = Image.open(io.BytesIO(file.read()))
 
     # Trích xuất văn bản và tọa độ
@@ -18,9 +12,10 @@ def upload_file():
 
     results = []
     for i in range(len(data['text'])):
-        if data['text'][i].strip():
+        text = data['text'][i].strip()
+        if keyword and keyword.lower() in text.lower():  # Chỉ lấy text chứa keyword
             results.append({
-                "text": data['text'][i],
+                "text": text,
                 "x": data['left'][i],
                 "y": data['top'][i],
                 "width": data['width'][i],
@@ -28,6 +23,3 @@ def upload_file():
             })
 
     return jsonify(results)
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
