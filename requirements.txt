@@ -1,4 +1,4 @@
 flask
 pytesseract
-pillow
-tesseract
+opencv-python
+gunicorn
