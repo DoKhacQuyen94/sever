@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify
-import pytesseract
 from PIL import Image
 import io
+import pytesseract
+
+# Định nghĩa đường dẫn Tesseract
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 app = Flask(__name__)
 @app.route('/', methods=['GET'])
