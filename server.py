@@ -1,10 +1,17 @@
 from flask import Flask, request, jsonify
 from PIL import Image
 import io
-import pytesseract
+import os
 
-# Định nghĩa đường dẫn Tesseract
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+tesseract_path = os.popen("which tesseract").read().strip()
+print("Tesseract path:", tesseract_path)
+
+if not tesseract_path:
+    print("Tesseract chưa được cài đặt!")
+
+# Định nghĩa đường dẫn cho pytesseract
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = tesseract_path if tesseract_path else "/usr/bin/tesseract"
 
 app = Flask(__name__)
 @app.route('/', methods=['GET'])
