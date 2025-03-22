@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 import pytesseract
 from PIL import Image
 import io
+import cv2 
 
 app = Flask(__name__)
 @app.route('/', methods=['GET'])
